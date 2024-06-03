@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
+#include <stdlib.h>
+#include "forca.h"
 
 char palavrasecreta[20];
 char chutes[26];
@@ -45,8 +48,30 @@ void desenhaforca() {
   printf("\n");
 }
 
+int numrandomico(int max) {
+  srand(time(0));
+  return rand() % max;
+}
+
 void escolhepalavra() {
-  sprintf(palavrasecreta, "MELANCIA");
+  FILE* f;
+  f = fopen("palavras.txt", "r");
+
+  if(f == 0) {
+    printf("Banco de dados não disoponível");
+    exit(1);
+  }
+
+  int qtdpalavras;
+  fscanf(f, "%d", &qtdpalavras);
+
+  int randomico = numrandomico(qtdpalavras);
+
+  for(int i = 0; i <= randomico; i++) {
+    fscanf(f, "%s", palavrasecreta);
+  }
+  
+  fclose(f);
 }
 
 int enforcou() {
