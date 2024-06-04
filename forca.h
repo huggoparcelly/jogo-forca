@@ -1,3 +1,5 @@
+#define TAMANHO_PALAVRA 20
+
 void cabecalho();
 void chuta();
 int jachutou(char letra);
