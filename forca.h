@@ -6,3 +6,4 @@ void escolhepalavra();
 int enforcou();
 int acertou();
 int numrandomico(int max);
+void addpalavra();

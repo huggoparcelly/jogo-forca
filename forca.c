@@ -53,10 +53,47 @@ int numrandomico(int max) {
   return rand() % max;
 }
 
+void addpalavra() {
+  char quer;
+
+  printf("Gostaria de adicionar uma nova palavra? (S/N)\n");
+  scanf(" %c", &quer);
+
+  if(quer == 'S') {
+    char novapalavra[20];
+    printf("Qual a nova palavra? \n");
+    scanf("%s", novapalavra);
+
+    FILE* f;
+
+    f = fopen("palavras.txt", "r+");
+    if(f == 0) {
+      printf("Banco de dados não disoponível");
+      exit(1);
+    }
+
+    int qtd;
+    fscanf(f, "%d", &qtd);
+    qtd++;
+
+    fseek(f, 0, SEEK_SET);
+    fprintf(f, "%d", qtd);
+
+    fseek(f, 0, SEEK_END);
+    fprintf(f, "\n%s", novapalavra);
+
+    fclose(f);
+  }
+
+}
+
+void checkfile(FILE* f) {
+  
+}
+
 void escolhepalavra() {
   FILE* f;
   f = fopen("palavras.txt", "r");
-
   if(f == 0) {
     printf("Banco de dados não disoponível");
     exit(1);
@@ -110,5 +147,6 @@ int main() {
     chuta();
   } while (!acertou() && !enforcou());
 
+  addpalavra();
   return 0;
 }
